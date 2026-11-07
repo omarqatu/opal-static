@@ -784,7 +784,7 @@ function faq(q,a){return '<details>'+T(q,'summary')+T(a,'p')+'</details>';}
 function viewCat(c){
   var rows=brandsOf(c).map(function(b){
     var s=c.supply[b.id];
-    return '<div class="row"><div><h3><a href="#'+b.id+'">'+b.name+'</a></h3>'+T(b.origin,'div','sub')+'</div><div>'+
+    return '<div class="row"><div><h3><a href="#'+b.id+'">'+b.name+'</a></h3></div><div>'+
       (s.note==='mentioned'?'<p class="models"><span class="ltr">'+esc(s.m)+'</span></p><p class="pending" data-ar="النطاقات والطرازات تؤكَّد في عرض السعر." data-en="Ranges and model numbers are confirmed on the quote.">'+(L()==='ar'?'النطاقات والطرازات تؤكَّد في عرض السعر.':'Ranges and model numbers are confirmed on the quote.')+'</p>':'<p class="models"><span class="ltr">'+esc(s.m)+'</span></p>'+specLine(s.spec))+
       '</div><a class="go" href="#'+b.id+'" data-ar="كل منتجات '+b.name+'" data-en="All '+b.name+' products">'+(L()==='ar'?'كل منتجات '+b.name:'All '+b.name+' products')+'</a></div>';
   }).join('');
