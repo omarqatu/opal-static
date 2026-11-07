@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Opal Galaxy — دليل الهوية البصرية v0.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Opal Galaxy brand tokens — functional names, mirror theme.json slugs */
+:root{
+  --primary:#0B1A2B;        /* navy */
+  --primary-light:#2B4A6B;  /* navy from the 3D logo, mid surfaces */
+  --accent:#74C4D9;         /* opal */
+  --accent-deep:#3FA3BF;    /* opal on white when text contrast is needed */
+  --accent-2:#B99A5C;       /* gold, print only */
+  --ink:#0B1A2B;
+  --slate:#5C6B7A;
+  --stone:#E3E8ED;
+  --base:#F5F7F9;
+  --white:#FFFFFF;
+  --font:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--base);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.75}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent-deep)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:700}
+h1{font-size:clamp(34px,5vw,52px)}
+h2{font-size:clamp(26px,3.4vw,34px);margin-top:0}
+h3{font-size:21px;font-weight:600;margin-top:1.6em}
+p{margin:0 0 1em;max-width:70ch}
+ul{padding-right:1.2em;margin:0 0 1em}
+li{margin-bottom:.35em}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--stone);padding:.1em .4em;border-radius:3px;direction:ltr;unicode-bidi:embed}
+table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:15.5px}
+th,td{text-align:right;padding:.55em .7em;border-bottom:1px solid var(--stone);vertical-align:top}
+th{color:var(--slate);font-weight:600}
+.ltr{direction:ltr;unicode-bidi:embed;text-align:left;display:inline-block}
+
+/* layout */
+.wrap{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100%}
+nav{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:100vh;padding:40px 28px;background:var(--primary);color:var(--white)}
+nav .brand{font-weight:700;font-size:18px;margin-bottom:4px}
+nav .ver{color:var(--accent);font-size:14px;margin-bottom:36px}
+nav ol{list-style:none;margin:0;padding:0}
+nav li{margin:0 0 14px}
+nav a{color:rgba(255,255,255,.78);text-decoration:none;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--accent)}
+main{padding:0 0 120px}
+section{padding:72px clamp(24px,6vw,96px);border-bottom:1px solid var(--stone)}
+section > *:last-child{margin-bottom:0}
+.inner{max-width:880px}
+
+/* hero */
+.hero{background:var(--primary);color:var(--white);padding:96px clamp(24px,6vw,96px) 80px;border:0;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:48px;align-items:center}
+.hero p{color:rgba(255,255,255,.75);max-width:52ch}
+.hero .status{display:inline-block;background:rgba(116,196,217,.14);color:var(--accent);padding:.25em .9em;border-radius:999px;font-size:14px;margin-bottom:22px;font-weight:500}
+.opal{width:220px;height:220px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.75) 0, rgba(255,255,255,0) 28%),
+    radial-gradient(ellipse at 72% 40%, #F3D9B6 0, rgba(243,217,182,0) 22%),
+    radial-gradient(ellipse at 40% 75%, #CFEBF3 0, rgba(207,235,243,0) 30%),
+    linear-gradient(135deg,#5AB6D1 0%,#8FD3E6 45%,#5FB9D3 100%);
+  box-shadow:0 0 0 14px var(--primary-light),0 30px 60px rgba(0,0,0,.45)}
+
+/* color swatches */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 1.6em}
+.sw{border:1px solid var(--stone);background:var(--white)}
+.sw .chip{height:96px}
+.sw .meta{padding:12px 14px;font-size:14px;line-height:1.5}
+.sw .meta b{display:block;font-size:15px}
+.sw .meta span{display:block;color:var(--slate)}
+.sw .meta code{background:none;padding:0;font-size:.95em}
+.ratio{display:flex;height:28px;margin:0 0 1.4em;border:1px solid var(--stone)}
+.ratio div{display:grid;place-items:center;font-size:13px;font-weight:600}
+
+/* type */
+.type-sample{background:var(--white);border:1px solid var(--stone);padding:28px 32px;margin:0 0 1.4em}
+.type-sample div{display:flex;align-items:baseline;gap:20px;padding:10px 0;border-bottom:1px dashed var(--stone)}
+.type-sample div:last-child{border:0}
+.type-sample small{color:var(--slate);font-size:13px;min-width:170px;font-weight:500}
+
+/* logo */
+.logos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:0 0 1.4em}
+.logo-box{background:var(--white);border:1px solid var(--stone);padding:28px;display:grid;place-items:center;min-height:240px;text-align:center}
+.logo-box.dark{background:var(--primary);color:var(--white)}
+.logo-box .ph{border:2px dashed var(--accent);border-radius:8px;padding:32px 20px;color:var(--slate);font-size:15px;max-width:260px}
+.logo-box.dark .ph{color:rgba(255,255,255,.7)}
+.logo-box img{max-height:200px;width:auto}
+.logo-box svg{width:100%;max-width:320px;height:auto;display:block;margin:0 auto}
+.logo-box .cap{margin:14px 0 0;font-size:14.5px;color:var(--slate)}
+.logo-box.dark .cap{color:rgba(255,255,255,.75)}
+.note{font-size:14.5px;color:var(--slate)}
+
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rule-grid h3{margin-top:0}
+.no li::marker{color:#C0392B}
+.yes li::marker{color:var(--accent-deep)}
+
+/* docs */
+.doc{background:var(--white);border:1px solid var(--stone);padding:32px 36px;margin:0 0 1.4em;font-size:14px;line-height:1.5;max-width:560px}
+.doc .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--primary);padding-bottom:14px;margin-bottom:18px}
+.doc .head b{font-size:18px}
+.doc .head .no{font-family:ui-monospace,monospace;color:var(--slate);direction:ltr}
+.doc .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-bottom:18px;color:var(--slate)}
+.doc .grid b{color:var(--ink);display:block}
+.doc table{font-size:13.5px;margin-bottom:12px}
+.doc .total{text-align:left;font-weight:700;border-top:2px solid var(--primary);padding-top:8px}
+.doc .foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--stone);color:var(--slate);font-size:12.5px;display:flex;justify-content:space-between;gap:12px}
+.doc .foot .gold{color:var(--accent-2)}
+.stamp{display:inline-block;border:2.5px solid #D63A3F;color:#D63A3F;padding:4px 14px;font-weight:700;letter-spacing:.08em;transform:rotate(-6deg);font-size:15px;margin:4px 0 0}
+
+.note{background:#FFF8E8;border-right:4px solid var(--accent-2);padding:14px 18px;margin:0 0 1.4em;font-size:15.5px}
+.todo{color:var(--slate);font-size:15px}
+.todo b{color:var(--primary)}
+
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  nav{position:static;height:auto;padding:26px 24px}
+  nav ol{display:flex;flex-wrap:wrap;gap:6px 18px}
+  nav li{margin:0}
+  .hero{grid-template-columns:1fr;gap:32px}
+  .opal{width:150px;height:150px}
+  .logos,.rule-grid{grid-template-columns:1fr}
+  .type-sample div{flex-direction:column;gap:4px}
+}
+@media print{nav{display:none}.wrap{display:block}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="أقسام الدليل">
+  <div class="brand">Opal Galaxy</div>
+  <div class="ver">دليل الهوية · مسودة v0.1</div>
+  <ol>
+    <li><a href="#logo">١ الشعار</a></li>
+    <li><a href="#color">٢ الألوان</a></li>
+    <li><a href="#type">٣ الخطوط</a></li>
+    <li><a href="#digital">٤ الرقمي</a></li>
+    <li><a href="#print">٥ المطبوعات والمستندات</a></li>
+    <li><a href="#voice">٦ الصوت</a></li>
+    <li><a href="#check">٧ قبل أي تسليم</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <div>
+    <span class="status">مسودة v0.1 — الألوان تقريبية حتى يصل ملف الشعار الأصلي</span>
+    <h1>Opal Galaxy<br>دليل الهوية البصرية</h1>
+    <p>Opal Galaxy Air Condition Trading L.L.C — تاجر توريد مكيفات بالعلامات التجارية للمقاولين والمشاريع والمستخدم النهائي، دبي. هذا الدليل يحدد كيف تظهر الشركة على الموقع، في البريد، على الفاتورة، وعلى الوحدة بعد التركيب.</p>
+    <p>أعدّته Omar Digital · 20 أكتوبر 2026</p>
+  </div>
+  <div class="opal" role="img" aria-label="حجر الأوبال، العنصر البصري المميز للهوية"></div>
+</header>
+
+<!-- 1 LOGO -->
+<section id="logo"><div class="inner">
+<h2>١ · الشعار</h2>
+<p>فكرة الشعار: حرفا OG متشابكان، وداخل الـ O حجر أوبال أزرق سماوي. الأوبال هو العنصر الوحيد الذي يحمل اللون والشخصية؛ كل ما حوله كحلي هادئ.</p>
+
+<div class="logos">
+  <div class="logo-box">
+    <svg role="img" aria-label="شعار Opal Galaxy — النسخة الأساسية" viewBox="25 75 365 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="opal-n" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8FD3E6"/>
+      <stop offset="0.5" stop-color="#74C4D9"/>
+      <stop offset="1" stop-color="#5AB6D1"/>
+    </linearGradient>
+    <radialGradient id="streak1-n" cx="0.3" cy="0.3" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="streak2-n" cx="0.7" cy="0.45" r="0.35">
+      <stop offset="0" stop-color="#F3D9B6" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#F3D9B6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+    <g id="mark-n" >
+    <!-- G: ring open at the right, with bar -->
+    <path id="g-full-n" d="M 344 143 A 100 100 0 1 0 362 200 L 298 200" fill="none" stroke="#0B1A2B" stroke-width="34" stroke-linecap="butt"/>
+    <circle cx="150" cy="200" r="83" fill="#FFFFFF"/>
+    <!-- O over G at the upper crossing -->
+    <circle cx="150" cy="200" r="100" fill="none" stroke="#FFFFFF" stroke-width="50"/>
+    <circle cx="150" cy="200" r="100" fill="none" stroke="#0B1A2B" stroke-width="34"/>
+    <!-- G back over O at the lower crossing (angles 105° to 145°) -->
+    <path d="M 253.284 299.856 A 100 100 0 0 1 180.085 257.595" fill="none" stroke="#FFFFFF" stroke-width="50"/>
+    <path d="M 258.510 300.176 A 100 100 0 0 1 175.397 250.237" fill="none" stroke="#0B1A2B" stroke-width="34"/>
+    <!-- Opal -->
+    <circle cx="150" cy="200" r="70" fill="url(#opal-n)"/>
+    <circle cx="150" cy="200" r="70" fill="url(#streak1-n)"/>
+    <circle cx="150" cy="200" r="70" fill="url(#streak2-n)"/>
+  </g>
+  </svg>
+    <p class="cap">النسخة المسطّحة v1 · على الأبيض</p>
+  </div>
+  <div class="logo-box dark">
+    <svg role="img" aria-label="شعار Opal Galaxy — النسخة المعكوسة على الكحلي" viewBox="25 75 365 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="opal-w" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8FD3E6"/>
+      <stop offset="0.5" stop-color="#74C4D9"/>
+      <stop offset="1" stop-color="#5AB6D1"/>
+    </linearGradient>
+    <radialGradient id="streak1-w" cx="0.3" cy="0.3" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="streak2-w" cx="0.7" cy="0.45" r="0.35">
+      <stop offset="0" stop-color="#F3D9B6" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#F3D9B6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+    <g id="mark-w" >
+    <!-- G: ring open at the right, with bar -->
+    <path id="g-full-w" d="M 344 143 A 100 100 0 1 0 362 200 L 298 200" fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linecap="butt"/>
+    <circle cx="150" cy="200" r="83" fill="#0B1A2B"/>
+    <!-- O over G at the upper crossing -->
+    <circle cx="150" cy="200" r="100" fill="none" stroke="#0B1A2B" stroke-width="50"/>
+    <circle cx="150" cy="200" r="100" fill="none" stroke="#FFFFFF" stroke-width="34"/>
+    <!-- G back over O at the lower crossing (angles 105° to 145°) -->
+    <path d="M 253.284 299.856 A 100 100 0 0 1 180.085 257.595" fill="none" stroke="#0B1A2B" stroke-width="50"/>
+    <path d="M 258.510 300.176 A 100 100 0 0 1 175.397 250.237" fill="none" stroke="#FFFFFF" stroke-width="34"/>
+    <!-- Opal -->
+    <circle cx="150" cy="200" r="70" fill="url(#opal-w)"/>
+    <circle cx="150" cy="200" r="70" fill="url(#streak1-w)"/>
+    <circle cx="150" cy="200" r="70" fill="url(#streak2-w)"/>
+  </g>
+  </svg>
+    <p class="cap">النسخة المعكوسة · على الكحلي</p>
+  </div>
+</div>
+<p class="note">النسخة المسطّحة v1 بانتظار اعتماد أحمد قبل أن تصبح الشعار الرسمي.</p>
+
+<h3>النسخ المعتمدة (بعد اكتمال الـ vector)</h3>
+<table>
+<tr><th>النسخة</th><th>الاستخدام</th><th>الصيغ</th></tr>
+<tr><td>كامل: الرمز OG + الاسم</td><td>الهيدر، الورق الرسمي، كرت الزيارة، الغلاف</td><td>SVG · PNG · PDF</td></tr>
+<tr><td>رمز OG فقط</td><td>favicon، صورة البروفايل، الختم، الستيكر، الزي</td><td>SVG · PNG · ICO</td></tr>
+<tr><td>أحادي (أبيض / كحلي)</td><td>على الصور، الطباعة بلون واحد، التطريز</td><td>SVG · PNG</td></tr>
+</table>
+
+<h3>النسخة ثلاثية الأبعاد الحالية</h3>
+<div class="logo-box" style="margin:0 0 1em"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAHNAeADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6opM0UUxBmlpKKLALRSUUALRSUYpALRRSUALSZoopgLmikooAWkoooAAaXNJRQAClpKKAFopKAaLALRRRQAUUlLQAuaSiiiwBRRRQAUUUUAFFFFABRRRQAUUUUWAKKKKLAFFFFFgCiiiiwC5ozSUUWAXNJRRQAUUUUAFFFFFgCiiigAooooAKKKKACkbofpQaQ9DQAtFFFABRRRQAUUcUUAFLSUYoAXtSUUUAFFFFAXCiiigYUUUUCCiiigYUYopaBBRiiikAYooopgJRQaKBhQKUUUCCkpc0UAJS0UUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABSdaWigAxRRRQAUUUUAFFFFABRRRQAUUUUAIaG6H6UGkbofpQAtFFFABRRRQAUUUUAFGaKKACiiigAooooAKKKKACiiigAooooABS96SgUALRRRmgAopM0UAFFFFAwoooxQAUuaTFLQIKKSigLC0UlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACkbofpS0jHg/SgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiikNAC0U0HmlzQAtFNLU0yYoAkpMiql1qdtZrvuZ44l9WOK47xB8XtD0UMsZa5kHQKcA1UYuWwnJLc7zI9abJLHEpaR1RR3Y4FfPeu/HPxBqG6PT0h0+M9GUZfH1NcPqHiLVtUkMl9qN1cE/89JCR+VbxwsnuYPER6H1TceLfD9oxWfWtPjYdjOuf51VHxB8J5x/wkGn5/66ivlIS7uwp3m+5rT6ou5H1l9j62tvFvh+7IEGt6dIT0AuF/xrTjmjmUPFIrqe6nIr413Z9/1q5Y6xqGmsHsr65tWHQxSMv8jSeE7MaxPdH2BRivnLRfjN4r0ras9zFqMQ/huV+b/voYNejeHPjdoequsOpwyaXKf43O+Mn6jp+IrGVCcTWNeMj0eiuUv/AIo+EdPHz6xDKf7sILn9Kwpvjx4XjYiODUJcdxGB/M1KpzeyK549z0ilFeaR/Hnw27ANa6ggPfYDj9a17D4veEL9gv8AaLW7HtPGV/Wk6c1uh+0i+p2lFU9P1jTtVjD2F7b3K+sbg1cqClqFFFFABRRRSuAUUUUAFFFFMAooooAKKKKACiiigAooooAKKKKACiiigANNPQ/SnGkbofpQAUUUUAFFFFABRRRQAUUUUgCiiimAUUUUAFFFFABTaU9KTNAC5pCeKQtUbPgUAO3Co3nCiq8twEGc1wnj34j2vhW38pcT30o/dQZ7f3m9B/Omk27IHodZrnijT9BtTcX1ysKdADyzH0A715prfxeu7tmj05TaQ5wGPMjf4V5Vq/iPUNbvGvL64aaVvU8KPRR2FVp7l7ZTFk+efvHP+r9h7+vp09a66dBdTnqVbbG/rnjC6uWZRO8sx+8zNnb/AIn9K5iSdpmLuS7HqTUIPtSg89cV1xiktDkcrjw2eKdycCopHSJDJI6pGvJZiABWNJ4ke4cxaRYT37dPMPyR/metMlu2rOgUfjTtpHaub/sLx1q/Mc8Voh/ggUkj8aguPhf4yILSaldk9eVenyze0TF4rDrRzR1RyDyD+IpQQRXAXHhbxtpWWivpnx2ErKfyNUk8Y+JNGmEeoKzY6rOnX6EVDk4/ErG0JQqfw5JnpoYjuaXzDzzXLaR4807UWWK43Wcp7scofx7fjXSqcqGDKwPIIOQaaaexTTW4/wAw+lKHJ9hTOfTNL36UAS5I6UbyPf8AWmUZ/OgC1aX9xaSCS1nkgkByGjYqf0rvfDnxo1/SGWO/K6lbjgiThwPZv8a84z6H+tOVip6n8amUIy3RUZuOx9R+FviJoXixVS0uPJusc203yv8Ah6/hXT18dRzvFIskbsjqcqynBBr1r4f/ABmlgaLTfEkhliOFS8P3k/3/AFHvXHUwzWsTphXvpI9ropkU0c8SyxOrxuMqynIIp9cp0BRRRTAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACkb7p+lLSN90/SgAooooAKKKKACiiigAooopAFFFFMAoopKACk5zRQTQAE00nilJxUbmgBHb3qrPNtB5p8smAaxNUvlghd2cKqgkk9AKYzA8e+NrfwppEl5Lh5SdkMQPMjnoPp3NfNt/q93q9/NfX0pluJm3Ox/kPQCrXj/xhL4u8QS3CufscBMVsueNueW+p/lisS1jkupo4IyN8jbQT0HqT7Ac12UafKr9TmqTuzWsiY4/tjEZyVhH+0Orfh29/pTRk85JPvT53RnCx8RRqI4wTztH9T1/GmD2zXUkckndijNR3NytqoJDO78JGvVz/Qe9Od1iXewzzgKOrHsBXR+DvBkusXn2q66H757Kv91fatqdNzfkcOMxiw8e8nsjG0LwFqPiy4E17hoVORH0ij/Dua9a8MfD7SdNA3wrMU7sMD8q2bG0htVSxtECxqPmIFaE0yW0YjXqetbNW92CPGc5VP3lZ3/IekNtbDbFDGijptUCr0MgMR6Vg/amZ+OlatuCYifasq0eRamuGqe0b5UJcW1leJtubWCVT/fQGuU8Q/Cbw54itnRIVhZv4CNyH+o/CunJJAAq3a2z9T0NYzqqEbtnRSw7qVEoo+TviH8BtY8L+ZeaWj3NsvJiHLAeqnv9OtcNoHi6/wBEkEW8ywA4aGToPp6Gvvt7WGWF7eeNZY2XBDCvnH47fA+GNG8Q6DEEl6zRKMCX/Bv5151OvzS90+kcHCNqjOc0jWbTWrUT2rk4++h+8h9/8a0PzrxjRtXutGvVmhYo6nDKeh9QRXq+k6rBrNkl1BjB4dCeUbuDXbCfMYThZlu6tmvLSa1W5e1eVcJcRnBibsfp2PsTXls3ibxPol9NZ3N9Ok8DlHSTDDP4jkV6qCKwvFvgtfFEH220dY9RtkCtu+7Mg6Z9x0z6Y9Kmpdaoqk18LMHTPiZcBgupWscy93hG1vy6Guz0rW9P1qPfZXCuepjbh1+orxaa3nsrh7a5iaKWM4ZGGCKfb3EttKssEjxyKchlOCKmNQudM9128dRTlYev6VxXhfxwL0pZaoyrOflSc8B/Y+h967EZrZO5g1bc9J+GPxNk8M3CaZqcrSaXI2Ax5NsT3H+z6ivoGORJY1kjYOjDcrKcgj1FfHAI+ley/BTx6SV8L6jLngmykY/nGf5j8RXLiKP20dFGr9lnslFFFcR1BRRRTAKTNHNGKACloooAKM0nNGKAFooooAKKKKACiiigApG6GlpG+6fpQAUUUUAFFFFABRSZpaACikooAWiikzQAUZozSUAFIaDSE0AIxxUMj052qtNJxQBVu5toPNeQfGzxX/ZXh5rGGXbcX7eSuDyE/iP5cfjXp2pXIRGJPSvlv4va+2r+M5rcNmKxUQqP9o8t/MD8K1pRvImo7I5RGxxWzoyBbe5ujnPEKY9W5Y/98jH/AAKsFH4rpIEMGnWkLAgupnP1Y8f+Oha74rU4pvQUU8HHSmDryKkQGRljQZdyFX6mtUrswk7K7Nvw14fOqeZqE2fs8DeWmP4374r0+2iTStNigjwrsMtjsKg8P6dbppFikKbYLWHuPvOeSx9+lMEpv9RCA8FsZ9AK9bD07xs+m58VmOJbq8999EdDp4FvZG4k+/JVaWYuxJPWia6EzBE/1cfC+9MgQyy+1So8t5MJ1Oe1OJasYDLKoxXSw2mIiMdqpaRbDIOPrW4zBWCAcV83mWNlz2ifa5JlkfZ80+pk29gxlO7tWrHbqgxilUbOeOaJZfKGWOK8mtiJ1T6DDYOnh72ILp9ki1j6y8V9byWkqho3GCD3q3c3XnHrismdg0xGelepgaLupSPBzXEpxlGOzPmD45fDZvDWonWLKP8A0eYgygDgE9G/ofeuG8Ka++jXwZjm3k+WVfb1+or7J8U+HLbxToE9ncRiTKEAHvx0r4s8QaNN4a1660yYHML4UkfeXsa7KmkrozwNRzp+zluvyPXo2DAFSCpGQR0I9asW04t51k6gcEeo7iuS8D6qb3TGtJGzLaY2+pjPT8jx+IrpQatao1s0yl428EQ63Z/aLUKLpVzDJ/fH90/54rx7a8UjRyqUdCVZT1BHavpHw6g1CyltjgvD8wHqprzT4reDTZSf25bRkKxCXKgdCej/AND+Fcb9yXKzuT543PPVwa9D8EeKTeIumXz5mQYhkb+Mf3T7154jAck11/hP4c+LfFdzE+i6RdFQwIuZF8uJffc39M1op8plKHMeiH68VqeHdJ1nV9TiTQraee6icOGiHERB4Jbov4mvT/BPwKRYIbnxXei6nCjdbWhKxE+7feP0GK9d03S7HR7RLTT7SG1t0+7HEgUClPEq1oihQe7Haabs6fbG/WNbvyl84RnKh8c4PpmrNFGa4jrCikzRQAtFFJmgBc0ZpKKAFooFFABRRRQAUUUZoAKKM0hoAM0N90/Sihuh+lAWEopaKACkpaKAEpaKKAEpaKKACkpaSgYlBopDQIQ0xqeajY0DI5DVG6fANXJW4rLvHwDQBzuv3q29tLI7YVFLH6Cvjy+v21LUrq9kYs1xM8pP1JI/Svpv4m6j9h8K6tPnBW2kx9SCK+VojgAe1dWHW7MarLofjArrrw/6Sy8YjAiUegUBR/KuS05Vmv7aJ/uvMin6FhXVXLB7iVvV2P611xOSYg+nNbXhXT21DVBhCRChfIHc4A/nWGDkV33wptPPvLuQr02L/M/4VrF2dzkxKvTaPRJIBp2iLGvBK4/GsCA+TkgYZ+M+1dPraloVjA7VzpizcYx8o4r2MHK8HfqfDZpTaqJR6F+3TCCtaxtuBwSzdqr2FoZMZBwK6nTNPEYWV15/hB7V5mY42NKLPdyTK515rsS21p9lgUtgHGTRDKHlJJAHqfSnahdKi+WOT3rFuL/afJB/3j/SvApYedeLlLqfYYjF08LJU4bI1WvBLKCCAi1Q1C7aWUIv3c81VF35aEjqabGSw8xu9awwyg72OapjnUVkyVugFVmjwS5705pTmmPJniu+kmjyMRNPQnhkJyB0xXzh+0f4XW3u7fW4Ex83lSYHY8g/nn86+jQViiJ715x8X9KGueFL2ALucRMy+zL8w/lVcjndoKVdUZwufNfgvUPseuW29gsczeS5PTDcfocH8K9RwUJUrgjgjHevFLRyrqQcHqPavaY7kXsMN2Mf6TEk2PdlBb/x7NRTfQ9mqrM3fBt4lp4itVkIEc58l/o3A/XFen6p4AtNYhmtbyPfBMhR19Qa8VUtG6yKcOpyp96+pdHKappVlfKARcQRy/moNc+KjqmbYZ6NHnfhT4I+EvDhR7XSUuJl/wCW93+9f8M8D8AK9Q03S0t1UBQAOmO1WILUA/drQhj29q5DpJolCDAqamgU6gQUUUtAxMUUtFAgpKWkoAKKKXFABRRRQAUUUUAFGKKKAE6UdaWigBDQ/wB0/SlNI3Q/SgLiZpaTFGKAFpKWkNABmlpBS0AJS008UvJoAOtJRRQAGmmlpDQAmajc081E9AEEzcGse+f5WrUnPWsbUD8rUDPJvjNMV8GapjugX82FfNyGvov4zEt4N1UAdIw35MDXzfG9deH2Oeruaukt/wATWy/67x/+hCupmJEz8872H61xMM/lSo+cbWDZ9MHNdvdkC7nI5/eMQc9ea6oPU56i0G5NeofB1QY74+kqj/x2vMASRzz9a9N+DU6l9QgyN25Hx+BH9Kqb0Oaorxsd/qzfNz7Cs21tTLL92ruohpboIOgNW7W3xhV4J610xrezhY+enhfbVbvY1NLs1GMgFR+tas06wxlz26D1qvbusMOOgrOnvxNLJIxxDAP++mNfPzhPEVry2R9jSqU8Fh1GPxMg1G8MSlicyN0rIjcuSTSXNw11Kzk/QUg+ROvWvdjBU4W6nyVWq61W/Ql3b268VaMm2P0FUQ2cAdScU+aXt2rCcbux1U58qbJQ3U54p8IJ+dqYqN5akjg0+RwiYFTzX0RfJb3pEV3P2zWDr8QnsHUjIPBHtWlK5dqq6uMae/vXbTXLoeZWfM2+x8ZXEH2XUbiDp5Urp+RIr1Tw1L5nhnTn9BJFz/suT/Jq838RLs8Tamo4xdS/+hGu98GMW8MRAk4W6mA9vljrz4aOx9Y3eNzcz7V9J/DC/gk+H+kS3FxFH5cTREyOF+65Hf2xXzSGOa4TxlKx1yRGdinloQpOQOPSnXhzKw6M+Vn3inirw6LgW/8AbulmY8+WtyjN+QNa1veWk4BhuYZAe6uDXwJ8O2Uaxd8AZsZBwP8AaSu3ju7iE5inmjP+y5H9a51hr9TV4i3Q+zlIPQgilr5CtfGHiKxx9m1rUIwOwmJH61sWnxa8a2p41yaQekqI/wDSh4WXRgsQuqPqalr5xs/jt4tjwJZbGcerQYP6GvouBzJBG7cFkDEfUVhOk4PU1hUU9h9FFFQaBSUtIaAClxSUA0ALRRRQAUUUUAFFFFABRRRQAUj/AHT9KWkb7p+lABRRSUALRRSUAA60tIKWgBDS00nmlNAwNNzSmkoAKQ0tIaBDSeaifnNSN1qNqBlSfvWLqH3WramrHvxlTQB5X8TLU3nh7U4FGS9vIAP+AmvlyKTODX134ohEkUikZBBB+lfI99bPp+o3Vm4w0EzxnPseP0rpoPQxqrqShsmu5WQXMMFwDnzokc/XaAf1BrgUaut8OXCz6UseTvhkZSPY/MD+e78q64bnNPY0wSK7X4T6gLbxOYGOFuIio+oOf5ZriMgHvV/RNROl6ta3qnHkyBj9O/6Zq5K6MHsfQiJvlaQjvVy0IGWYYyar2zq8IZSCGAINSF9oAWua7kzmSUI2Jr688qLg84rGu7o+VHaKfu/M59WP+FLqFzlwgNURuZ+Mk130KCjG7PKxeKlUm4x9CyqiNfekc9Kcw8sc84qPJY5NTzczuHIoqyJI+ufQUyR8nFBcKpNRLlqaXVhJ2SiX47pjEEPQdKhllLcDp3qORwigDvTN+1CT3qIU0ncupVbXK2NBy1VtabFkR9BVmLrk1jeK75LSwkmYgJEjSHPoBmuhPU5Urq3c+Ttbl8/xFqUmfvXUp/8AHjXoXhJPK8MQc5MlzM+PQYQf0Neaxlri4eVusjFj+JzXqmlQm10PTYHXDCDzGHu7Fv5EV59Pe59ZLRWLigV574zkH/CQzL/djjH6Z/rXoC89Olcp4q8D67LqEmpLBG8FwqtGRJg7doxkGrqySWoqcXJuxB8O3B1i6B/58pP/AEJK7Un/APWK8t/s7X9HMlxAkluVRg7pIM7ep7+1VU8Ya6nTUZj9cH+lZwqo0dFs9cyM+tKSPU15ba+Ndfknii+2Bt7heYlPU49K9Tul8m6miU5VJGUE9wDitozUtjGdNx3FhJeVEHVmAH519pQArBGvogH6V8caBbm913TbYD/XXcMf5uK+ysVyYrdG+GWjDmgUGiuQ6hc0hoooGFAopRQAUUUUCCiiigAooooAKKKKACkf7p+lLSP90/SgApKM0lAC5ozQKKAAUtIKM0AIaKKKBhQaOlIaBBSE80ppvegBrUxulPfrUbUDK0w4rJvlyDWxKDisy7QkGgDidfg3RtxXy78VNJbTfFT3KjEd4okH+8OG/p+dfWOsQZRuK8K+Mfh83+jvdRpmazbzVx3X+Iflz+Fa0pWZE1dHjSNW34ZuvKvjAxws67R/vDlf6j8a52J8fSrcMzRssiHaykMD6EV2p9Tla6He8Y/+vSgkdKhtLlLu3juEyFcZx/dPcfgalz71sc57n8ONbGseGYkds3Fp+4kB64H3T+X8q355hDGzk9K8U+H/AIk/4R7XV859tpdYimz0Ho34H+Zr1zVJcgIvQ1nTh+8t0OLGtxg5IrCQytuPU1cto1X5z2/nVOAYIqy0gVcZ4rrqyv7qPGw0OV88hsr7368d6CcCmKuT7Cmu/Wot0RtzP4mEj54Ap0fYVXVtzfSrttE0pwByadRqEdRUU6k7IjYmR89hUUrgsfQVfa1KK2R93ism6cISAelTSqKTsjTEUZU1eQ5pwDtBrzn40a3/AGd4ZuIUbElzi3X3z979Aa7lJsK8zn5V4H1r59+K3iA694m+xRPugscqeesh+9+XA/Oqry5U4orL6LqTU3stTldE02TUL23tIx888ixj2yev4da9PuXR5W8sYiHyoPRAMKPyArmPBunGBZ9ScYCKbeH3dh8x/BT/AOPCugBzWEVY91u5NDDJdTRwRAtJKwjQD1JwP517B4i8LRLaLb7RiKNUB+gxXFfCrRv7Y8Z2jOuYbMG6f0yv3f8Ax4j8q9h1+IFGPWuTFSu0jqw0dGz5n+IGnjSdFv3PBK+Wv1Y4rx1Y+K9l+O98kX2TTEI3yuZ3H+yOB+pP5V5GI/apprQ0nKxpeD7A33ifTYQMgTrK2f7qfOf0U16gZWkcserEsfqa5H4e6b5a3uqyDgD7JD/vNy5H0Xj/AIHXWD0rqpK2pyVpXdjrfhZZHUfiDokRGQtx5x+iKW/pX1nXzv8As76P9q8V3mpsuVsrUqp9GcgfyU19EVyYmV52OjDq0bhRRRXObhR3oooC4GlFJRQAtFJRigBaKSjNAC5opKXFABmjNJRigBaa3Q/SlpG6H6UAFJS0cUAB4oooNACUvSk4peKBiUUUuc0CG0UppKACkpaSgBpphFSUw8GgCCQVQuUyDWi4qpOmRQM5rU4dykV554o05ZY5FdQysCCD3Feo30OQeK47XbLcjcU0B8heJdGfw5rVxYsD5YO+Fv7yHp+XT8KpRvXsHxP8I/2rp5uIEzeWuWjx/Gvdf6j3FeMRv25/wrrhO6OacbM6bw3qPkym0dhslOUz2f0/H+eK6QMD14rz6NsEEZB/lXZaNqI1G2+c/v04f/a/2vxropy6HPOPU0AMc/1r03wT4nGpWi2F25NzbrhGY8yIP6ivMuB6ipba5ltJknhcrIhypFW0YVIKasz3dfvZA7UySTmub8N+MLfVbURzMI7qMYZT/F7itR7odc0U7nl4iny7mmkvyH1NQSyZbatUhd5c4bpwKes4HfLGuiEOXVnFUqKXuotoBwM/WtaykW3w+MkisOGYF9ueByatm8G3g9awxK5lY7Mvag+Zbl7U9Q2wE9MntXMzTmRzil1XUt7iLd90c1x3i3xlZ+HbEvK++ZxiKBT80h/oPerw1NUoXZOOqyxNbkjqRfEXxzH4e0owWzg3kwKwJ3z3c+w/nXi+jaVcapfJBH888zEs7nhe7Mx9ByTVlv7S8U6ybmdWuLu4bCRr0Ueg9AP/AK9dhZWFvo9uba3ZZZpMfaLhejf7C/7I9e556YrKT55XPVoUVShy9SYJBbwRWlqSbe3XYhIwX7lz7sefyHam5zTh7Cui8B+EZvGOvxWQDC1jxJdSD+CPPT6noPr7U5NRV2bJOTsj1H4L+HG0rwzLq86bZtSYGPPUQrnb+Zyfyrc8QXUcMMryMqIgLMxOAAOprorpobS2SGBFjijUIirwFUDAA/Cvn346ePVEcvhjTpd1xMP9LdT/AKtP7n1Pf2+tea71JXPRSUI2PGfHGvHxV4nvNRXPkFvLgB/55rwD+PX8axbeymvLmK2t4zJNKwREHVmPQVba2VF5AFdl4f0M6JD9ruEK6hMmEQ9beMjqfR2H5A+p464w6HLKfU0ba0g02yttOt2Vo7VSpdekkh5d/wATwPYCngjPUU1V4xWz4S8OXHivxDZaRADm4kG9h/BGOWY/Qf0rd2irmGsmfQXwH8P/ANkeClvpE2z6nIZySOfLHyp+gJ/4FXpFQWdrDYWcFpboEhgjWONR/CoGAKnrypS5m2elFWVgoooqRhRRRQAUYooFAC0maXNJQAtJijpS0gCiiimAUUUUgCkbofpS0jdD9KYITNFLRQAhNISTTqKAGig5p2KKAGiijNLQAlJS0UAJSHNKaKAG4ppHNPpCM0AROBVeQDFWmFQOtAzLuYtwNc/qlpuU8Zrq5o+KyryAMDxQB5Zr+mZ3ECvBPiL4QbTLl9Vsoz5DnM6Afcb+99D3r6m1bTg4Py1wOvaKrq6PEGVgQQwyCKuMrEuNz5kjkzV2zvJLSdZojhl7HoR6H2rZ8Z+CZtBme8skZ7EnLKOTD/8AY+9c1HJnvXVGV9UYSjbRne2F/DqMAliOCOGQnlD6VYyR61w1neS2cwmgbaw4IPRh6Gut07U4NSjyh2yj70ZPI/xFdMZJnNOFi/HPJBKssTlHU5DA4IrqtL8YcLHdkI39/wDhP19P5fSuRz2P86UHngZ9qsxnBTVpHpcGqQ7VLybA3Rs5DfQ9DVoX8YOQ4PpzXl8N3Pb58qQoO4PIP1HQ0kkyzk7vtMBP8VpcNGR/wE7l/QVftZHnvLYfZdj1ZLsKn3uT3qpqfivTNHhMl7fwwgDozjJ/CvJ5tN+0cP4h18J/dJVv1DL/ACqCLwtoSSeZO+p3bd95RSfxJasZSk3sdFLBQhvI1tf+KwuGki0S2eWRif8ASJhhR7gdT+OK5uz8N6lrUh1TU59qydbq5zhvZB1b6KMe4reghsLJs2Wm28TDo8x85x+fy/8AjtPmuZrmTfPI0r9NznJp2b+I3p0oU17iC3itdNt2ttPR1VxiWaTHmTex/ur/ALI/EmgHHbimilLUzQ0NF0q913UoNO06FprmZsKvYDuxPYDua+kPCXhiz8E6ILGBllnf57mfGDK+P5DoBXgPgrxxdeCb2a4trW3uFuFCSrJw20En5WHTr9Ola/ib4pXfiVHgea9sbV+GhtlT5h6F92T+lc1aE5uy2OijOMFd7nSfE34sxaak2l6C6XGoHKPOOY7f/FvboO9eCR6bdahdSBElu7qRi7t95iT1Zj2+prpy+mIv7uxnlPbzZgo/EKM/rTJL2WSLyVSOGD/nlCuxfqfU+5zVU6PKhTrcxS0/SLbSH852iur7+Fh80UHuM/eb36DtnrVrJYlmJYk5JPJJ9aaP85pwIHXit0rGLdxeBz0r6S+CXw/fwxpLaxqMOzU9QQbUYcwQ9QvsT1P4DtXIfBv4UtfSQeJddt8WyEPZ2rjmU9pGH90dh369K97FcWIq391HVQp295jqWjFLXIdIUUUUAFFFFABRRQKACilooASilozQAmaM0UuKACiiigApG6H6UtI3Q/SgApM0CkoAdSZooxQCEyaCaMUu2gY2lPFFBOaAEFLmikNABRRRQISigiigBjdaiYVMw4phGRQMrSJVKeLINaTLUEiZoA567tA4PFczqukiUH5a7qeHOazLmzDA8UAeQ6zoGQ2YwVPBBHWvI/Fnw2dHe70dArEktbE4B/3fT6V9P32lK4PyA1zGpeGw+SEFXGTQmr7nyU6y20zQXETwyocMjjBFWIZGV1dGKOOQynBFe7eJfAVpq6bby0DkDCyLw6/Q15xq3ws1Sydn02VbmPtHL8jj8eh/Sto1UZSpmfY+IOAl4v8A21QfzH+FbMUkcqB4mV0PRlORXKXGl6lprYvLC5gx3ZDj8xxTbaZ4n3wStG5PVD1+vY10RrdzCVHsdf8AlRnuKx7bVr3gPHDMPUfI39R/Kri6ln79ndD3VQ4/Q1qqsX1MnTki5n1FGSPU1XS+hc4EV1n0+zv/AIVYS3vZz+40vUJM9/s5Ufm2BT549xckuwmfalyc4qabR9cEPmR6dGG/uSzAN+QyP1rm9QPiCAkXVlcW6eqJlfzFQ68O5Soy7G/06il4z2/OuXsdRuLckRznHdJPmH5HkfhWxBq0jr+9ts+8TZ/Q0KrFg6UkX/8APSj8qgS8hbtIp9GjYf0qeNxM2Iw8jH+FEZj+QFXzLuRyvsO6fT2pRjHStjTfB/iLVmAs9D1CTPRmiMS/99PgV3Xh74DareOsmtX8NlF1MVv+9lPtk/KP1qJVYLdlqlKWyPMrW1nvrmO1tIJLieQ4SKJSzMfYCvb/AIb/AARFpJFqvimOOSUYaKwzuVT6yHuf9kceua7/AMI+BdE8IQ7NKs1jkYASTv8ANLJ9WPb2GBXUIlclXEOWkTpp0FHVj41CgADAAxgVIKaBTwOK5jcXNGaMUYoAWiiigAooooAKKKKACjNFFABmjtRR2oAKXNJRigBc0UmKMUgFpG6H6UtI3Q/SmCEx70U0UuaAHU2lzSUAwpSaQ0lAC5pKKVaBgKCKWkNAhMUUUZoADSUE00tg0AKaZSNKB3rJ1fxRpWhpm/vYoT2TOXP0Uc00gNUio2XNcFf/ABi02EH7JZyzgfxyMEH9a5vVPjvNaRlvs1lCD93dudiPYdfx6VapTeyJdSK3Z608eaqywZrwa7/aG1xmP2aC3A9WjC/pz/OqqftBeJw2WtrJx6ba1+qzM/rED3ia0DZ4qjNpob+GvL9K/aLJdU1XRBt7vbv/AENeg+GviP4Y8VkRWV+kVwR/qJ/kf8M9azlRnHdFxqwlsxtzoiyA/JWTc+F0fPyY/Cu9a2X0qF7VSOlZGh5pP4PDEjbx9KzLj4cafcEmWxtnPctEM16u1iGOAM/hUMlnEnLsi/7xAp3A8nX4W6ODn+zIB/ugj+tXrf4e6XBjbp0HHqua9EVLR2Krc25I7CRSf508W8P/AD0i/wC+hSuxaHFQ+F7eAfu7aJP91AKlPh5WHKD8q7MWkZ6FT9DS/YQf4aVxnBTeF0bPyD8qpyeEgc/JXpBsAeopP7PU9qYHlsvgK0uDmazgl/34wadF8M9JJy2m2/4JivURpi/3alXTQO1F2Bwem/D/AEi3Py6Zb/iua6rTtDt7NQIYIoh/sIB/KtlLIL2q1FbAdqQFa3tBxkVoQwYp8cIGKsImKEAqLgdKmUcZNNHFOzximIeKUdKaDThQA6ikBpaACik4ooAWiiigAooooAKKKKADFFFFABRiiigBaKSgUALSN0P0oNIeh+lACYxRS5pBQAuKDxS000AJ1p2KQcUtAxCKBS0lAAaSlNJTEJmkLYoziopHxQAryYqncXixAksAB15qO6uggPNeJfGX4gzQsfDunzFZJFzdSKeVQ9E9ie/t9aqEeZ2FJ2VzS8b/ABiczy6boEgAUlZLzrz6J/j+VeazavLLIZZZJJpZDyzEszH+tc2l0QMA4xTprporfOSJZh8v+wnr9T/L612wppbHLOb3L1/rciEpG4aXueqx/T1Pv09PWsGV3kdpHcs7HJJPJNIM06KCa5lWGGNpJG6IoyTXRpE5m3JkX1OadjjIp+q6JrMdufsz26SjqpGT/wB9dM/hXEXt9qtlOYbqW5hlHOGJGfcdiKj28ehp9Xl1O0xilR2UhgSGByCDgiuNtfEt9CfnkE69w4/rXSadqtvqaHyzslAy0bdR9PUVUZqREqbiex/Df4z3WitFpfiGV7nTydqXLHMkH1/vL+te6Pfwy2yXEEiSxSKHR1OQwPQg18Z8j/GvU/hD46e13eGr+UmCXLWjMf8AVv3T6Ht71zYigrc0Too1nflkWf2i/Elx/wAItDaQzSRB7xNxjcqSArHGR2r5unmklOZJZJD/ALbE/wA69t/aAl/4klv/ANfa/wDoLV4UJA1TQtYqtudf4TleLRbkxyPE32teUYrn92fStkanfp92/ux9J2H9awvCx/4k1z/19L/6LatInAzk9PSuqCXKcs27mhHrurRnKapfD385j/WrUXjHxFBgx67frjt5h/rXL3GvWNn/AK8yxj1aI4qD/hK9Izj7UR/wBqLxY1GZ6fonxi8WaRKplvU1CEfeiuUBz9GGCK9p8A/E3RvHH+jIpstSVctayHO/1KHuP1r5XtL22vlLWtwkoHUA8j8KuWl3PYXMV1azyQXELB45EOGRh0IrOdCM1oVCtKD1PtHywB0qCedIVJIHFc18NfHKeOPDK3Uu1dQtiIbtBx8+OHA9GHP5irWvX620Du7BVUEknsK8+UXF2Z3qSkro8g+NPxs1/wAOeILbR/DV5FaeVD5ly5hSQszH5V+YHGAM/jXm83x8+I8w58TSR/8AXO2hX/2SuQ8U6y/iDxFqOqOxIuZmZc/3Oij8gKh0O0W+1W2hfmPdvk/3FG5v0GPxrshTVtUc06jvoez23xm8d6da21vLq4mmSJTK80CszORk5IA6Zx+Fdb8OfjT4h1jxhp2mazcW0lpdsYjti2kMR8vP1xXisk7TStKxJZyWPPc81NY3ktheQXcJIlgkWVCOxU5H8q3dKLVrGCqyve59wM+2qtxqKW4LMeBVXTtVi1fSbPUoSDHdQpMMf7QzWLr9yywvg9q8u1tD0UeN+Nf2nPFGg+KtV0rTtP0Z7S0uGiieaOQuwGOThwKy9L/am8bX2q2lrJaaIkc0yxtst3zgnHUvXk3jmQv4y1piet5J/OqWgnGu6cfS5j/9CFdsaUWtjlnOV9z6Jt/2kPEq483TNKkz6B1/rXuXgvXZvFHhTS9ZniSGW8t1maOMkqpPYZr4ujb7vNfX3wl/5Jr4dx0+xJ/WoxNOMUmkOhOTbTOspaKBXIdItFFFABRRRQAUUUUAFFFFABRRRQAUYopTx0oATFIeh+lOprcg/SgBCKB1pRg0UAFIeaWjFACUvSijNABSUUcigBCaaTSmmscUANZqp3Eu0Gp5GxWbeTYBoGc54x8Qw6DpF3qMx+S3jLkepHQficCvk661O41O9nvrpy89xIZHJPcmvYvj/rrW+i2+nRvzeTjf/uKM/wA8V4Yj4FddCOlznqy1sadsPPlEbk7OWc56KBk/oMfjRLK07s7AAseg6D2qOzOILiQkYbbEPxyx/wDQR+dGR26V2Q2OSb1JLeCW5njgijZ5ZWCIqjJZicAV7JoPgOHQdOCOFkvJBmeX3/ur/sj9etc78FPDo1PXLnVJQGisEAj44Mr5AP4AH8xXs09kCOlceJqO/Kjpw1Oy5meXar4bUhiFFcJ4l8KwX9s1vcpn+44+8h9RXul7pwYH5a5DXtHVkJCj8q5kzpaPlvUdPn0e/ks7gDch4I6MOxFFvcSQSLJG5R1OQw7V33xN0AGwF+i4ltThj6oT/Q8151E2a6oSuc9RHeaZfrqFqswwHHyuvof8DV2GaS3lSaJykkbBlYHBUjoa5Lw1dGLUViLYSceWfr/Cfz/nXUcnqa64PmWpyTVnodD8XtZGteCNMvsjfLcLvHo4Vgf1rxxHrtPF12x8IraseEvVcD6qc/yrho2rmUeVtHQ3zJM7Twrzo9z/ANfS/wDoBrXiUPLGufvMB+ZrG8JEDRbo5/5e0/8AQDW1aYa8tx/01Tn/AIEK6IfCYS+I1NX8MhVkjeMPG3BUjg15Jr2kHRtSe2yTGQHjP+yf84r6o13RlzJ8o6mvAvixZLaahY4HzMjj8AR/ia8+D1PQaOP0+6ms50mgfa6nP19j7V6Na3CXdrDcICElQOAe3Yj8wRXmkQ6V6HoIA8Oae2fmJmB+gfj+ZrspvWxyVV1PTfgfrr6V40FmXxBqULQspPBZRuU/Xgj8a7L44+JP7G8I3ux8TXX+jR885fg/kua8o8ByGPxrojKcEXaf/Xqx+0Lr327X7PSUkylrGZpAD/G3Az+AP51lWheoi6ErQZ5NjAx6V0HheAR219esPmbbbRn6/M/6AD/gVc+TgV2Fpbiz0qytsYbZ50n+8/P/AKDtH4VtFGMmJcTpbW0s7n5Y1Ln8BUisGAZTlSAwPqCMisPxfd/ZtI8kH5p3C/gOT/Srfh+5+1aLaufmZAYW+q9P0IrTm97lJ5Pc5j6k+BWunVPAosXbdLpszQ++w/Mv8yPwrofEB/dN9K8b/Z+137B4rudLkbEeo252j/ponI/QtXsXiBv3bV51ePLNndRleCPjXxt/yOGtf9fkn86qaB/yHdP/AOvmP/0IVa8bH/isda/6/JP51U0HnXNO/wCviP8A9CFdcNjnnudXCfu19g/CX/kmvhz/AK8kr48iONufavsP4Sc/DTw5/wBeKVnitkGG+JnXUnWjNAriOwWiiigAooooAKKKKACiiigAoooFABRzR3ozQAtI3Q0tI3Q/SgApKTNLQAtJmlpvSgBc0lFFABQTQaSgBCajc081E5x1oAgmbisPU5dqnmti4OBXOavJ8poGfOXx51EzeJ7C13ZENszke7N/9jXnCycV1/xrk3eNwfS1jx/301cQr5rvpfCjlqfEbdrk6ep/vTOePYIP8acAcf4VHZkf2dFz/wAtJM/+O1L2x1rpjsck9z6H+Bulrb+BxcgfNd3UshPsuEH/AKCfzrvpLfINcx8FAr/DfSyOcPOD9fNau2eLjpXl1X77PSpq0Ec/dWmR0rndWsQYzkV21xCMVhalbgoags8Y8YaKtza3MBXiWNkP4ivnSMFSVbhlOD9a+s/EloME4718r6jCIdVvowMbbmVf/HzW9IxqrQWCQxFZF4ZTuH1HNd9dbBcylPusdy/Q8j+dcDGMj04ru5M/u89fJiz/AN8LXbT0Zx1NjF8WfNozc8LKh/nXFq3Ndt4oAOiTnjgqR+dcOlZ1fiNaOsDt/CH/ACBLknn/AEtf/RbVu2H/AB/WvH/LZP8A0IVheDv+QJd/9fSH/wAcatmF/JmjmAyUYPjPXBzWkPgMamkz6J1yFf3nHJJr5d+Kupxat4peK3YPFZL5G4cgtnLfrx+Fek678S9Q162kgeJ7QSAhmtpQrEemSpI/CuHXRtDAz9huWPvc/wD2Nc8MPJas6Z4iLVkcNZWE15cR29vG0ksh2qoHJNd/HClpb29lEwdLaMR7x0dsksw9izHHtinp9nt42isrOC0RhhjHku49C5JOPYYHtTMgDnoP0rphC2pzTnfQ6r4aWguPFtvO/Edkj3Ln0AGB+rCvOfFGtHxD4j1LVCSVuJ2ZM/3Bwv6AV6nc2sngf4XajqcwMOo6wqwxKeGjjY4X8SCW/KvFRhRgcAVjfmm5G1uWCRb020/tDUbe0JwssgDH0Xqx/AA11s832meSUjG9iQPQdh+ArC8Lw4a7vSP9WghT/efOf/HQ351sqASBg8mt4rqYS10OM8Y3Xn6klupysCYP+8ef5Yq94Juvlu7MnsJlH04P6EflXOak8r6ndGYYk81gw9DnpVzw5d/ZNYtnYgIzeW59m4/rWCleVzqlH3bHp/h3WX0DX9O1VCR9luEkOO65+YflmvpvXZUlg8yM7kddyn1B5FfKLLglSOnBr6C8Gaz/AG14B0+R23S28ZtpM9cpwP0wanFx0UicLLVxPmPxuf8Aisda/wCvyT+dVPD5/wCJ7p3/AF8x/wDoVWfG3/I461/1+SfzqnoB/wCJ7pwz/wAvKf8AoQq47CnudcjZC19g/CM4+Gfhz/ryT+tfHcR4X8K+w/hH/wAkz8Of9eSf1qMV8KDDfEzr6UUgorhOwdRSdqBQAtFFFABRRRQAUUUUAFFFFABRiiloATpQ3Q/SlNNPQ0AJiilzSA5NAC4NITS5ptACilpBTqAGmmmnGmmgBDUMnWpm6VDJQCKVycCub1gZRq6S56YrntWGUagZ8u/HKAw+J7O4wcS25TPurf8A2VcAj16/8dtKM2mQX6LlrSb5j/stwf1xXjMb57120n7pzVVZm/pjb7N8HOyXn/gS/wD2Jq1uwKytGuMTyQk4EyY+rLyP6j8a08iuqD0OSotT6S/Z51NL3wTPZZHm2V44K/7LgMD+e78q9OdOK+b/ANn7xQmi+MH0ydwsGqxeUMngSryn55YfiK+lpBXnYiNps7qEuaCM6dOKxr+PINb0+MGse/8AumsTY4LxFEAhz2r5GvnFzqV5OORJPI4+hYmvqf4pawmheFtQvCwEnlmOL3kb5V/U5/CvlmOHYoX9a6aKMazFhhMzrEg+eRgij1J4FdzeFBdzBPuqxRT7DgfyrA8M2hN6b1h+7sx5mfWQ8IPz5+imtjvnmu2COGb0Mjxa+NGYD+KRR/OuLUV3fi21I8Ki7I4e7WNfwUk/zFcOg5rCbvJnRT0gjsvB5xol2P8Ap6j/APQGrYDcgVk+Eh/xJrr/AK+U/wDQGrXhjEk8aHHzOo6e9bU9ImFT4gDikLL3I/GvbrHwDYiXL2NuRnoYx/hXZ6V4T0u2Qf8AErsgf+uCf4Vz/W/I3+q+Z802GmX2qziDT7K4u5W6LAhc/p0r1PwX8HnspI9U8TKm6Mh4rAMGGexkI4/4CM+57V7LFAkEYSNFjX+6oAH5CszWp1hgclgOOvpWc8TKWi0NIYeMXd6nzz+0L4g+16rYaMj5EKm5lA9Two/LcfxryLIPGK2/Gms/8JD4q1PUQxKSTFIz/sL8q/oM/jWXZ2j393DaR/emcRg+mTyfwHNbU1aJlVd2dLptt9j0i0jPDTA3LD/e4X/x1QfxrZ8PWB1HU0jwSsamVvoP/r4qjcOrzuycIDtQeijhR+QFMQkHPOa6LXVjnvZ3Oa8aeF9TXxDcS2mm3k0U2JN0cDMAe/QeorFHh3XUOf7G1If9uz/4V6FubOQaXccYzWSoW6m/1jyII/PaGF7iGSGWSNXZHUqwOOcg++a9L+EWrFI9T0h24dVuIx7j5W/Qr+VecN1zWr4U1P8AsjX7S6JITd5b/wC63BrSrG8GjKnO07nFeNnA8Ya1/wBfkn86q+HznXdO/wCviP8A9CFP8aSBvGGtHPH2yT+dReHCDr2m/wDXzH/6EKxhsjWe51sfRRX2J8I/+SaeHP8AryT+tfHcfAFfYfwiOfhn4c/68k/rU4v4UPDfEzr6WgUVwnYFLS0lAAKWiigAooooAKKKKACiiigAoFFGaAFNNboaXNIx4P0oASilxSYoAM80E+lBFBGKBgKKM0UAIaQ05qSgQxulRSVK1RuM0DKU4zWJqUeVPFb8ycVlXsRKnigDyjxzo8WqWNzZzLmOZGQ/jXy3c20+mXs9jcqVmgcow9x3/Hr+NfZOv2BkViBXgHxW8GyySNrFlFmaMYnRRy6D+Ie4/lWtKVmZzjdHnUMrIyuhw6kMp9CK6OORZkWWPG1xkD09R+B4rkopdwyDWtpd8sDGKU/unPX+6fX6etd0JanJUjobsEskE0c0LskkbB0ZTgqQcgivqX4YfEu18c6UsNy6RaxboBcRdPM/6aL7Hv6GvlgjH07VY0+/u9KvYr6xuJba5hO5JY2wVNVVpKaM6VRwZ9nTkYNYmqTJFEzuwVVBJYnAAryLSv2gr8Wfk6rYQzXAGBcx5Ab3ZR/Sua8WeN9T8YRNBca1Zw2bdbeBJEDf72VyfpnFcSw076nZ9YhbQwPi740TxdqaWGnsW02zYkP2nk6bvoOg/E1wtrps97cLb28W+Q88nAUdyT2A9a6STS7CNsyXbTAfwW8ZGf8AgTYx+Rp3mIkRgtokt4SQSq5LOR0LMeT/AC9q66dLlVjmnVuyPyI7O3SztstHGSzSYx5rnq307Aen1ot7eW7njt4EMksrBEUdSx4AoIPc8eter/C3wJLbw/8ACQ6lCVZl/wBDjYcgHrIR79B+dXUmqcbmdODnKxwHxi0hNF8I6dYJgmGdQzD+Jirbj+ea8eReele8ftARbdDtzj/l7X/0Fq8Oiiya5KV3qddXTQ6vwqCNGux/08x/+gNWzZ83lvx1lT/0IVkeGkI0u7H/AE3j/wDQWrZ08Zv7Qf8ATaP/ANCFdcVaJyS+JH1xDpqqxO3vV+O22jpV0QAMeO9PMYAryj1DOmXYprzL4w+If7C8JahOjYleMxR8/wAbfKPyzn8K9O1BgsZ+lfM/7RWvefeafokbH5c3Uo/NVH/oVVTV5Ezdlc8YAIAFbfheIrcXN6R/qIiiH0d/l/8AQd9ZISum06FrXRoEIANyxuT64+6v6An/AIFXoxWpwSfUlB9q6r/hBrxIEkkdgzKGK7OhI6VR8C6IfEPizTtPK5jeUSS8f8s0+Zv0GPxr6B1HREZSdg/KssRVcWlE0oUoyV2fOGt6bdaVaXE0SLK8SFwrLjOOvSuIHjW7Iz9lt/zNfRPifQF8tj5YIYEEY6ivmLUtNbS9Uu7FwcwSsgz6Z4/TFRCrJ7s1nSilojotI8RT6lfJbywxRhw2CuclgMgfpW5vI6YzXCWkj200c8fDxMHH1BzXdZVvnT7rAMv0PIrphK+5y1IpbHH+JPM/t26kkPMrCUH1DDNO8Nv/AMT7Tv8Ar5j/APQhVvxhbbRa3ajsYW/mP5n8qoeGmzr2nE/8/Mf/AKEKzejsabq52sZ6CvsL4RH/AItn4cH/AE5J/WvjxCQB0ru9E+MPi3QNItdKsbuGO1tYxHEphBIA96dem5pJE0aig22fXANOBr5VX49eORn/AE63/wC/C04fH3x0vS+tM+9stc31WZv9ZgfVVIDmvLvgf4+13xzFq7a3NBKbVohF5UQTG7dnOOvQV6lWEouLszaMlJXQUUlLUlBRRRQAUUUUAFFFGKACjFGKWgBMUjDg/SnYpGHB+lABSUZ96SgB1NNLmkoASlzRijigLiE5oNFIaAEIpjipKY/WgCCUE1QuI8g1pOKrSpnNAzl9StNwPFcHr+is25gtep3NvuBrB1DTg4ORQB8t+MvhtNHcSXujxgZO6S26ZPqv+FcIA8MjRTI0cinDKwwQfpX1jq2gBicL+lcTr/gOx1YEXdorsBgSDhx9GHNbRqW3IcLnjOn6g8SiN8tEOnqv09vatSN1kUOjbge4rorj4TvESbO9cDssyZx+I/wqAfDTVgwOYCf7yuQfzxXRDEJbnPOhfVGNjninA9MgV01t8NNaYbftMX/Axu/UYrWtPg/rdywB1GxjH/XNyf51qsRDuY/V59jgyeakggnupkggikmmkOEjjBZmPoAOTXr+k/AW3d1fUtXuJgOqW8Qiz/wIljXp3hjwRovhhNuladFbuRhpeWkb6ucmoni4r4dSo4WT+I8y+H3wWlR49U8TxKAuHj0/Oeexk/8Aifz9K9Tvof3eABW35OBVa5tt4IrinUc3dnZCCgrI+cf2hYSNAtzj/l7X/wBBavC4I8AV9p+K/Bdh4gszb39pFcoG3Ksi5Ab1HvXF2nwb0QS4Onw4z02CtKdVRRFSm5M8K8OL/wASy74/5bx/+gvWtYgjULTt+/j/APQhX0xo/wAJ/CsMAWXQbCTocPEDk10Vl8PfCdpIksXhvSVkQhlb7KhII7jitvrStaxk8M273OiK8np1qOQYWp8UyRciuI6zA1hysLH2NfFnjvXB4k8X6lqStuheXy4v+ua/KPzxn8a+3NStRJC6kA7gRg968jvvhVo/2pjHpVoik/dES4H6VrTmou7M6kXJWR8z21u13cR28RG+Vgi/UnFdTeBTOwiP7pAI4yf7qjaP0Ar6I0L4VaAsitNo9lIB2aFT/SuutPh34VgA2+G9I/G0Q/zFbxxKXQweHb6nkn7O/h0z3ura5KvywotpEf8Aab5n/QL+deyXdplDxWrZaXZ6Zbi3sbS3tYQSfLgjVFz64HFNnhyDxXPUnzyudFOHJHlPPdf0zzYnULzivmL4t6DLp3iZLlYn2XUXJCnG5Tg/pivsm904Sg8Vy+s+FY7xMbOhyOOlKMuUco30PjGGCTH+rf8A75NdXpLPJp8SlX3RgxkbTnA6foR+VfSth4QVJBla6620eO1tgiooOOTjrW0cRboYyoX6nxxrlm97pdxCqMZFAkRdpySvp+Ga5/w/YXsGtafLJZXSIlxGWYxMABuHfFfYGueFUu5jJt+b1xWQvg8jgqc0Sr3d7DjQsrXPC0tLnAAt5m+kbf4VMtheEcWlx/37Ne7J4OB/h/SrEXgtMjKD8qr62+xH1Vdzwq30LVblgsGm3cjHssRJrTh+HvjCfAi8M6u2eh+zkD9a+ifDvhaK0lV9gyPau7tkKKADxR9bl2D6rHueVfs9+Fdd8MQ63/bWmXNh9oaExecAN+A2cYPuK9gpopa5pycndm8Y8qshaKSlqSgooooAKKKKACl7UlFABmlpKXNABmkbofpRSN0P0oAMUdKWkoASlozRQMKSijvRcQEYpKUmg0ANNNYZFP7UlAEZFROtWDUbCgZSliBzxWfcW24HithlBqvJGOaAOaudOVs8Vl3GiI/8NddLCDVdrYGgDjm8Oof4aE8PID92uuNsM9KelqvpTA5u30FAQdta1tpapjgVqJbBTVhIQKQFSGzC9quJFgdKlCgUuVA5IFAEfl01ocipvMjH8a/nT12sMjkeo5pgZs1oGHTNRR6eitnbWs0dNIC9eKQDIYQAOKsquBWGvjbwtuKjxJoxKkgj7bHkH/vqtSDU7C4dY4b22kdhlVWQEn6DNOzFzItYprLmn0EcUgKM8W9cYrPfT1Zs4rZdRUD7E5YgUxle2tRHjiryxjFec3fx68B2F3Pay6hdtJBI0TmO0dlJBwcHoRnvV5fjh4GCKZNTkh3AMFkhIbBGeR2qvZy7Euce53JTionjzSadqNpq1hb39lMs9tcxrLFIvRlIyDUkjqgyxAFSUVZIAaqy2QbtXnvir9ofw74S1+60W+0nWHntyP3kax7JFIyGXLZxVay/aV8I30Zf7FqkYBwQ0akj8jVqnJ7Ihzit2ejxWSqc4qyYMjGKw7Dx7oOpeG38RQXJWwiR2lZxho9vUEeteVy/tV2qu3leFZmjBO1muwCR2JGziiNKT2QOpFHtMliH7VENMXP3a8zX9ou2AjSXw3cm4cD9zDOGIY9FyQOeRxjrUXxI+POqeBLyxjTw1a3EV1CGcy3LBoZe8ZwMHA7/AFodKSdmJVIvY9VTTl/uip0sVH8IrwfR/wBqa7u5WS68M2yfLlRFctz69RXp3gb4qaf4y0a7vXhWxuLN8TQF9wVSMq+eODg/kaJUpJXaBVIt2O3t7cJir0YwK+Xr/wDaj8StqFz/AGbp2lLZCRhb+dG7OUB4LHcOT16Vq2X7RnizyYFn0vTJrmfBWNI3XAb7oxuOSeD+IqlQmS60T6RBpeap6U96+m2rakkSXrRKZ1iztVyOQM9h0q4KxNQ70UtFABRRRQAUUUUAFGKKKAsFGKKKADFIw4P0pc0jdD9KAEzSUuKKYADRRRSGFLigUUCEPWg0HmigBKMUpFGKAG9Ka1PNMagZE1VpXC81PI2KxdW1BLeJ3ZgqqCWY9AB3oAwvHPj/AE3wVp/2m8JkmkJWC2Q/PM3t6AdzXil58aPFesXcjQXcdhCoLGOEYWNfVmOSfT3PQVxXjXxjL4v8RXeqyO32fJS3Q9I4h0/E9T7mqzJMfK0uBWMrspkUfxynsfZQcfXce9d1Kikrs5KtV9DoLz4n+KZJy8Gval6ZaYqD9FB4/HNPs/i743sm3Lrk0u3+GVFcfjkVf0rwi1oikLum/icjkn29BWs3wmtPE91DPNLc2M68NLbkAv8AUEHNJ1qd7WBUp2vc6TwD8fX1C9t9N8TWaI87iOO7tlO3ceBuTtk9xXt3A7V5l4L+CGjeGdbttaa/udQaBSY4riNQFk7Px1wOnHXmvSJW2DNc9Vxb902pqVveIru6EKFvQV8xfHHxlca34rGmxzv9m05NhVWwDI3LH8BtH517v4x1+HRNIvNQmb93bxNIRn72BwPxOB+NfJMjT61qjzTv++u5TJK3oScsfwGfyq6Ebu4q0rKxcjvbm0tYxBdTRvN+8bY5B29FH8z+Ir0T4G+MrnTPG8Vle3cz2upIbciWQsFk6oeenIx+NeS6/fmC0uLlflJASMf3ewH4D+VP0HVJXtLO9gkK3MRGGB5V0xg/yP412yipLlOJNp8594SuE/CuY8TajJHayKjEZUipvC3iOPxV4W0/WYyM3MIMij+GQcMPwINYviqTED/Q15bVnY9JO6PjPOHlOBnc3b61638K5Gb4s6PlmP8Apkg5Of8Alm9eQk5aU+7V638KOfixo3/X5J/6LevRfwM8+/vI+taD0ooJxXnXPQIZW2g15/8AFTxYfDPhS/vUfEojMcPvI3C/zz+FdvezBVNfNn7QfiT7bqlnocL5S3H2ibB/iPCj8Bk/jV0480kiJysrnldlELm7jSQ/KTukY/3QMsfyBqzPdm4ut0hCyTMxVfpzgfQU2yURW0shHzykRLn+6MFv12j865nxBqzW2vwNGeLTGcdyfvD8uK9FaK5w8vM7H1x+zt4lGpeFLjQ5ZM3GlyZQHr5Lkkfkcj8q9B1d2WBtp7V8ufCPxX/wi/jjT7rzMWd4fss5zwUfG1vwbafzr6n1KLfGRiuLEQtO66nXQleNn0PmT42eHZdQB1KCMtc2wJOOrp3H4da8g0vUBa3AcnMbcOPb1r6v8WaSsyvlRyK+X/HmgHwzrLiJD9luCZIv9k91/D+Rq6E+gq0Op0cWp3w0a90a2uGW3vSjtGDxIV5A/H/CsbSrPc7XbrmO3I2g9Gk7D8Op+g9apeHNQe7tzbuT5sA3KfVP/rV12habceI9WsNHtVjSW6m2A9BuY5Zz74/liuvTc5HdaHefBfwa2p3kniS+Rmt7RiIN/PmTf3vfb/M+1W/it4Z/t20niYfP96Nj/Cw6GvatP0C00HRrbSrKPZBbRhF9WPdj7k8/jXJ+KNN8yNsCvOnUcpcx3U6ajGx8fRSS2c+CNksTYKnsR1BrrdN1a6gguFs7loEv7dreYjup7H8R/Oovid4ebSdXGoRIRDcnbJj+GT1/EfqKydFugMwP/Hyh9/T/AD6V2U5cyOWquXYsaVZrcal5dypWKDLzD/ZH8P1JwPxr2v4D+Dm8S+KpPEd9Hm00xg6Aj5XuD90D2Uc/9815XCj3LLbW1uXubmVQdpy0rdEXH1P4n6V9jfD/AMKxeDPCdjpChTMib7hx/HK3LH8+PoBSrz5Y2XUKMeeV+x0gpQaSlArzzuFzS0g4oAxQAtFFFABRRRQAUUUUAFFFFABSHofpS0h6GgBBzRQcUCgBaM0UUAJRS0cUAJRS0hoCwuabS0hoCwhpjmnmo5KAKV1JtU815j8XdWfT/BetTRMQ4tXUEdt3y/1r0m8PykV5R8W7WS/8K6taxgl3tnKgdyOQP0px3B7HzNYlXuYIyMqZEUj23Cu7+G8Cal4sluZwG8uKSbn+8SBn/wAeNec2NyElhmJ+VHVz9AQa9C+Gl2tl4tNq5UC4ikgBPds5H/oP616D1g7HF9tXOq8VfFDTPBV/DZSaZPeyyIZCY5FQKM4HX15/Kr+hfHXSWtI7ubRp4A7MqoJN5+XHPC471yHxC+H8uvaul/8AazBsi8sr5e7uTnqPWvNdenufClxHpMUsNzsXzS7RkEbj0xn2/WsKUYS3N6jmtj6ci/aQ0KJcHSL4gD+Fl/rXqJvkurGG6jyEniWVQeoDAEfzr4d0y7e90tLmQKHZpFO3pxjH86+yLG72+G9MbIH+hw8/8AFLEU4wScRUZyk2pHkXx/8AEpS3tNEichrh/PmAP8CngH6t/wCg15LZMIrWafHzN+5T8eWP5YH/AAKrfjzxB/wk3iy/1BXJhDeVD/uLwPz5P41TlHkxxQE48tfm/wB88t/h+FdFGFkjCvK7M7xdpczeH49QGdkc3K+oPGfzrF8IXWJ5rNjxKPMX/eHX8x/IV2bXbS2oglhtZYgNu14QwI988VWQWiPujs9PhcdGjt40YfQ4zVcr5rk88eTlse4fs7+Jx5Oo+GZ35H+mWwJ7cBwP/HT+JrtfFj4if6GvnDwr4hk8L+IrDV4iSLaUM4B+9GeHH4qTX0P4omS4tPOicPHIm9WHRlIyD+Vc2Ihad11OjDTvGz6Hx9u+aT6mvX/hQP8Ai7Ojf9fcn/ot68fUfM/1Nev/AAqdV+LOj5YAC6k6/wDXN66X8DOb7SPrbNRytwaY17ap965gH1kFMkuIZUJiljk/3GB/lXmnoGJ4gv0s7OaeRwkcaF2Y9gOSa+NNe1mXX9bvdVmBLXMpcL6L0UfkBXv/AMffFB0nwy9hE+2fUX8hcdQnVz+XH418+abDvmEx+7Avmn6j7o/76Irqw8NLnPXl0LrQYnitd6AR4QkkAA5yxz9Sf0rl9b8G38+r3MtpLZvA77lZ7lAefxrtNG0G61t5vJYBYgCztnGT2/Q1W8R6ZP4esmunTz1RgGVTtwDxn88V0TlG9mzGmprVIzNLs7mysIILp4jNHlcxyBxgHg5H1x+FfX/w/wDEi+LfBGn6gzBrhY/IuP8AronB/Pg/jXxtY62t7cJELfy9/AO/PPbtXt/7PfiY2er3vh6aT91fJ58IJ6SoOR+K/wDoNRXjzQ06FUpNT16np/iNEWORmIAAJJPavkrx5rS+KvEM08J/0OAmKD0IB5b8T+mK96+PnisaVpH9jWsuLzUFIYqeY4v4j+PT868A0qwV5zJKoMEADuD0c9l/E/pms8PD7TLry+yizpmkLpdiM8XN0A75/gj6qv4/eP8AwGptJ1YxzrfWEzxz2swZHHUMDkMParF9Y6hqekahd2+TIoJJxyx6kD8K4/Rrr7PMrZOw/KwHpXTzK9jnUG1dn3L4E8YW3jrwxb6pHtFwB5V1GP4JQOfwPUfWn6xYiSNuO1fPXwg8cHwX4lRbmT/iV3xWK59F/uyD6Z59jX03fRK8ZZSCpGQR0IrgrU+SWmx3Up8yPnv4s6TGnhzU3ZAdsW8ZHQgjBrwO2dlljIJ4YH9a+mPjTD5PhXVW7GA/zFfNdrHvlQDuw/nW+H2Mq9kz2n4IWdvdfE/T1mhWQRedIgYZ2sqnB+or6vHFfKvwKynxUsh/sXP/AKA1fVeMms8V8Y8N8ItLQKK5joHUUUUAFFFFABRRRQAUUUUAFFFFABSHofpS0h6H6UAN60tAopgLSUUUguFFLRigAopDmloGJSUppKBAaicVIaY+eaAM67XINcN4qtDLExAzxXfzpuFYWq2AmRhigZ8aeNPC03hrVpmjiP2CZi0TDomeqH0x29qr2FzJlLhHZJ4SDuB5yOjD9Pxr6N8R+FEu1kSSFJI34ZWXINefXfwqst5NsJrduwU5A/A100q9tzCpS5loUpfiVJqGnGKe0gW/CgCV2Iif3OASDXnl74a/tS9kvtS1m08yVtzmFWkb6AYA/MivSofg/f3L4ivYlz3aMj+Vb2kfs+3VxIpvtajji7iCElvzYgfpW0alJaoxcarVjy7StAbU57XRNCs55mYlI1Y7nkYnLO2OB/IAdT1r3v4p6xJ4O+H32dZQLn7PHYxFT/FtCkj6AE12XhDwDongq1ZNKtiJpABJcyndLJ7Z7D2GBWD8RvBlr4tS3ivIjIsDFkG4jBIx2rGpVUmuyNqdJxTvuz5Y0yMPOpYZSIeY2e4HQficD8a7r4e+GW8Ra28sg3w2iGWTP8THhR+eT+Fek6P8DfDwB8+G5O4gkLOwHHSu58PeBdI8LW80OlWxhWdg0hZy5YgYHJ+tXLELlsiI0HzXZ5pqHhRI84jGPpXi3xI0A6Trcd2kZWG6HPHAccfqMV9c3uirKD8ua5q/8EQ3zDzIUcA5wy5rnhUcXc3lG6sfMWjy+bYhGYZiOP8AgJ5H65r3r4f60uu+BktHk33Omk27ZOT5ZGYz+WR/wGu60L4eaFbxnztG0+Vz/E9uhP6itC48N2VtC8dnZW9srdRDEqZ+uBWtSspxtYyp0XCV7nxY1pcQyyq8Ey7WYcoR3rrDLcW+pPdWjOsqyMyOgyR16fnX0DN4OjaRj5YwTToPB0YOPLAH0qlibLYl4e73PDodW8T3ZCRXGpSEnoiHJ/IVoR6Z8QgfMgtPEisOQVjlWvf9H8Kw20yyeWuR7V1bQny9vtSeJ8g+r+Z81fGLTfEHifxShtrGSW1tIFijwy8seWPJ9cD8K57Tfhx4uktNkOh3TNI+XO5ANoHyjlvcn8q+l5vDyS3Bl2DJPpWtaaesKABQBURryjsaSoqW55l4J8By6F4XihvoAl9MzTTrkHaTwFyPRQP1rM8T+C01O0uLV4wVlQqePWvZXtAw5FUptHSQ8qPyrNybfMzSMUlZHy3pXwE8QXNwqW99YhgeGkDr/IGu20v4I+LtC1K11WHVNKjltZVmUI0h6HkfdHXkfjXutjpEdu+4KAavzW4dCMdqtV5LQz9jFu586eJvhnqvi7xJeanc6lsad8IpiyI0HAUc9BV+y/Z7nFmkcniBFXcXOy0JLE+pL9hxXti6Siybto61dS1AXFJVprZlOlF6tHlB+H1vpemQafbAusK4LsOZG7sfqa5uw+AHh+/vS08V1CrsWIhmK4z6AggV7s+nq55FS21gkbAhcfhUczvcqytY84t/2cvBwiRWudbdVGADcp09M7K9A07RodE0i20u2kuJYLWMRo1xJvkKjplu9bKrgU1o80OcnuwUUtjhPFXheHXbWW2uIlkikG1lZcgisfw78GvCK83fh6wm9zHj+WK9Me1DHkVNBbrGOBRzNbDaTMbQvh74U8PXaX2laDZWl2oIWdFJcA9eSSea6ShVwKXFK76hZLYBS0mKUUgFopKKAFopKWgAooooAKKKKACiiigApD0P0paQ9DQA2loFFAC4oNFFACZozRSUAL2ooFFAwoNFFAhppGHFOpMUAQSJmqc0AYGtBhUTJmgZgXWmLLnKis5/D8TNnYPyrrGiz2qPyB6UAYFvoscR4X9K1YLNUAwKuLCPSpVjwOlAEBiwOlUp7ISnJFavl0hj5oAzYbJU7VP9nFW/LFLsoEZ7WobtTBYoTyP0rT8ujyqBlSK2VRjApslsG4xV4R4oKUCMk2C5zilWwQdq1PLpfLHpQMqRW4XsKmaLIxU4jpdlAiobcZ6U8QjHSrITB6UbRQMreUKPIB7VZ2j0o2j0oEQrEB2pTHntU22gpQMr+VinCPjpUwWl20AQeUPSnrHjtUm32pRQIbto20+jFADNopwGKWigAzSg0YpcYoAAaM0tJQAtFFFABRRRQAUUUUAFFAooAKKKKACkPQ0tIelACCigCimAuKSlpO9IA6ClFJS496AEpKcRxSAUAJmlzQRRigYuOKbilHSg0CGEUhWn0Y9qBkez6U0pUuKKAIwhA6UoTin4oxQAzZS7BTsUYoEN20u2lxS44oAbijFOxRQA3FGPanUUAN20u3FOxRQA3FG2nYoxQA3bS4pcUUAJijFLS0ANop2KKAG4xRS0YoAKCKMUUDEpQcUhpQKAFIptPpMCgQgFOpKWgAooooAKKKKACiiigAooxRQAUUUUAFGKKMUAFIe9LSHoaAFptOpKADFGKWmk0AFOpop1ADSCaWjNLQAU2lJozQAlL1pM0ZoAUgUlFJQFgopc0lAWClxSUo6UAJRRSjigAxxR0pc000ALmkoooGFLSUuaACkxSilzQISlzRSHg0ALSUZozQAUUhpR0oAWigUGgAGaDntS0UAIKKM0UAGKAMUtFABRRRQAUUUUAFFFFABRRRQAUUUUAGTRS0lIAooopgLSGig0AFIelOpp6GgAzSdDR3pDQAuaSl7UlABThSCjdQANS54pvqacRQAh/WkzTjTaACiiigLhRRRQFwooooC4Uo6UlFACjFFJRQAtJRmlFACUUUUBcKKXFHagLgOeKD1ooNAAT6UlFFABRRQKAuFKDQTSUBccKTODQKKAFzmgmgCg80AAozzijNHfNAC0meaM5ozigBaKTNFAWFopKM0BYWiiigLBRSUZoAWikzRmgBaKTNGaAFopM0ZoAWikzRmgBaQ9DRmjtQB//9k=" alt="النسخة ثلاثية الأبعاد الحالية للشعار"></div>
+<p>تبقى كعنصر بصري (asset) في hero الموقع وصور السوشال فقط. لا تُستخدم كشعار على المستندات أو الأختام أو بأي حجم أصغر من 300px عرضاً، لأن الظلال والإضاءة تتحول إلى كتلة غير مقروءة.</p>
+
+<div class="rule-grid">
+<div class="yes"><h3>القواعد</h3>
+<ul>
+<li>مساحة أمان حول الشعار = ارتفاع حرف O من كل جهة.</li>
+<li>الحد الأدنى رقمياً: الكامل 120px عرضاً، الرمز 32px.</li>
+<li>الحد الأدنى طباعةً: الكامل 25mm عرضاً، الرمز 8mm.</li>
+<li>على خلفية كحلية: النسخة البيضاء الأحادية أو الكامل بأوبال فاتح.</li>
+<li>على الصور: الأحادي الأبيض فوق طبقة كحلية بشفافية 40٪.</li>
+</ul></div>
+<div class="no"><h3>ممنوع</h3>
+<ul>
+<li>تغيير النسب أو مدّ الشعار أفقياً.</li>
+<li>إعادة رسم OG بأي نسخة أخرى (الختم الحالي مثال على المشكلة: نسخة ثانية بنسب مختلفة).</li>
+<li>وضع الشعار على خلفية أزرق أوبال: يختفي الحجر.</li>
+<li>إضافة ظل أو توهج أو إطار.</li>
+<li>كتابة الاسم بخط آخر بجانب الرمز.</li>
+</ul></div>
+</div>
+</div></section>
+
+<!-- 2 COLOR -->
+<section id="color"><div class="inner">
+<h2>٢ · الألوان</h2>
+<p>الأسماء وظيفية وتطابق slugs الـ theme.json في الموقع، حتى يتبدّل اللون من مكان واحد. القيم أدناه مستخرجة من الشعار الحالي وكرت الزيارة وتُراجع عند وصول الملف الأصلي.</p>
+
+<div class="swatches">
+  <div class="sw"><div class="chip" style="background:#0B1A2B"></div><div class="meta"><b>primary</b><span>كحلي · <code>#0B1A2B</code></span><span>RGB 11 26 43 · CMYK 90 70 40 60</span><span>الهيدر، الفوتر، العناوين، خلفية الهوية</span></div></div>
+  <div class="sw"><div class="chip" style="background:#2B4A6B"></div><div class="meta"><b>primary-light</b><span>كحلي الشعار · <code>#2B4A6B</code></span><span>RGB 43 74 107 · CMYK 80 55 25 15</span><span>أسطح وسطى، hover، الـ 3D</span></div></div>
+  <div class="sw"><div class="chip" style="background:#74C4D9"></div><div class="meta"><b>accent</b><span>أوبال · <code>#74C4D9</code></span><span>RGB 116 196 217 · CMYK 50 0 10 0</span><span>الأزرار، الروابط، التمييز. بكمية قليلة</span></div></div>
+  <div class="sw"><div class="chip" style="background:#3FA3BF"></div><div class="meta"><b>accent-deep</b><span>أوبال غامق · <code>#3FA3BF</code></span><span>RGB 63 163 191 · CMYK 70 15 15 0</span><span>نص الروابط على الأبيض (تباين كافٍ)</span></div></div>
+  <div class="sw"><div class="chip" style="background:#B99A5C"></div><div class="meta"><b>accent-2</b><span>ذهبي · <code>#B99A5C</code></span><span>RGB 185 154 92 · CMYK 25 35 70 5</span><span>المطبوعات فقط: خط فاصل، اسم المدير. لا يُستخدم على الويب</span></div></div>
+  <div class="sw"><div class="chip" style="background:#5C6B7A"></div><div class="meta"><b>slate</b><span>رمادي أزرق · <code>#5C6B7A</code></span><span>RGB 92 107 122</span><span>النص الثانوي، التسميات</span></div></div>
+  <div class="sw"><div class="chip" style="background:#E3E8ED"></div><div class="meta"><b>stone</b><span>حجري · <code>#E3E8ED</code></span><span>RGB 227 232 237</span><span>الحدود، الفواصل، خلفيات الجداول</span></div></div>
+  <div class="sw"><div class="chip" style="background:#F5F7F9;border-bottom:1px solid #E3E8ED"></div><div class="meta"><b>base</b><span>قاعدة · <code>#F5F7F9</code></span><span>RGB 245 247 249</span><span>خلفية الصفحة</span></div></div>
+</div>
+
+<h3>نسبة الاستخدام</h3>
+<div class="ratio">
+  <div style="flex:60;background:#F5F7F9;color:#0B1A2B">base + white 60٪</div>
+  <div style="flex:30;background:#0B1A2B;color:#fff">primary 30٪</div>
+  <div style="flex:10;background:#74C4D9;color:#0B1A2B">accent 10٪</div>
+</div>
+<ul>
+<li>الأوبال نادر عمداً. إذا ظهر في أكثر من عنصرين على الشاشة الواحدة فقد تأثيره.</li>
+<li>نص فاتح على كحلي: أبيض أو stone. لا نص أوبال صغير على كحلي.</li>
+<li>نص أوبال على أبيض: accent-deep فقط، وبحجم 17px فأكبر.</li>
+<li>الأحمر <code>#D63A3F</code> والأزرق الملكي في الأختام الحالية مقبولان لأنها أختام وظيفية (مدفوع/ملغى/مستلم) لا عناصر هوية.</li>
+</ul>
+</div></section>
+
+<!-- 3 TYPE -->
+<section id="type"><div class="inner">
+<h2>٣ · الخطوط</h2>
+<p>عائلة واحدة للعربية والإنجليزية: <b>IBM Plex Sans Arabic</b> (ترخيص SIL OFL، مجاني، يُحمَّل محلياً في الـ child theme). خط هندسي واضح يناسب الكتالوجات وجداول المواصفات، وأرقامه مقروءة في الفواتير.</p>
+
+<div class="type-sample">
+  <div><small>Display · 700 · 48/1.1</small><span style="font-size:48px;font-weight:700;line-height:1.1">توريد مكيفات للمشاريع</span></div>
+  <div><small>H1 · 700 · 36/1.2</small><span style="font-size:36px;font-weight:700;line-height:1.2">Midea · O General · Carrier</span></div>
+  <div><small>H2 · 600 · 28/1.25</small><span style="font-size:28px;font-weight:600;line-height:1.25">للمقاولين وشركات المقاولات</span></div>
+  <div><small>H3 · 600 · 21/1.3</small><span style="font-size:21px;font-weight:600">Ducted Split 3.0 Ton</span></div>
+  <div><small>Body · 400 · 17/1.75</small><span>نورّد الوحدات بكميات المشاريع مع توصيل لكل الإمارات، ومع التركيب عند الطلب.</span></div>
+  <div><small>Small · 500 · 14/1.5</small><span style="font-size:14px;font-weight:500;color:#5C6B7A">TRN 100XXXXXXXXXXXX · St152 Port Saeed, Dubai</span></div>
+</div>
+
+<ul>
+<li>الأوزان المستخدمة: 400 و500 و600 و700 فقط. لا Light ولا Italic.</li>
+<li>العناوين كحلي، النص الأساسي ink، الثانوي slate.</li>
+<li>الأرقام في الفواتير وعروض الأسعار بالأرقام العربية الغربية (0–9) في النسختين.</li>
+<li>سطر النص لا يتجاوز 70 حرفاً عربياً.</li>
+<li>الطباعة والمستندات: نفس العائلة. لا Arial ولا Times.</li>
+</ul>
+</div></section>
+
+<!-- 4 DIGITAL -->
+<section id="digital"><div class="inner">
+<h2>٤ · الرقمي</h2>
+
+<h3>الموقع</h3>
+<table>
+<tr><th>theme.json slug</th><th>القيمة</th><th>الدور</th></tr>
+<tr><td><code>primary</code></td><td><code>#0B1A2B</code></td><td>هيدر، فوتر، hero</td></tr>
+<tr><td><code>primary-light</code></td><td><code>#2B4A6B</code></td><td>hover، أسطح وسطى</td></tr>
+<tr><td><code>accent</code></td><td><code>#74C4D9</code></td><td>الأزرار الأساسية، الحد العلوي لبطاقات الخدمات</td></tr>
+<tr><td><code>accent-deep</code></td><td><code>#3FA3BF</code></td><td>الروابط</td></tr>
+<tr><td><code>ink · slate · stone · base · white</code></td><td>كما في القسم ٢</td><td>نص وأسطح</td></tr>
+</table>
+<p>الزر الأساسي: خلفية accent، نص primary، زوايا 4px. الثانوي: حد primary بسماكة 1.5px. زر الواتساب يحتفظ بأخضر واتساب لأنه إشارة وظيفية معروفة.</p>
+
+<h3>توقيع البريد</h3>
+<div class="doc" style="max-width:460px;padding:22px 26px">
+  <b style="font-size:16px">Ahmad Osayd Al Qatu</b><br>
+  <span style="color:#5C6B7A">General Manager · Opal Galaxy Air Condition Trading L.L.C</span><br>
+  <span class="ltr" style="margin-top:8px">+971 54 198 1593 · opalgalaxyac@gmail.com</span><br>
+  <span style="color:#5C6B7A">St152 – Port Saeed, Dubai – UAE</span>
+</div>
+<p>نص فقط، بلا صور مضمّنة (تُحجب في معظم برامج البريد). الاسم بالوزن 700، الباقي 400. إذا أُضيف الشعار فهو رمز OG بعرض 48px كرابط للموقع.</p>
+
+<h3>السوشال (فيسبوك، إنستغرام، واتساب بزنس، أدلة الأعمال)</h3>
+<ul>
+<li>صورة البروفايل: رمز OG أبيض على كحلي، الرمز يشغل 55٪ من الدائرة.</li>
+<li>الغلاف: صورة ميدانية حقيقية (وحدة على سطح أو رافعة) مع طبقة كحلية 40٪ والشعار الكامل الأبيض يميناً.</li>
+<li>قالب المنشور: صورة ميدانية + شريط كحلي سفلي بارتفاع 18٪ فيه نص المنشور بالأبيض ورمز OG. الأوبال في عنصر واحد فقط.</li>
+<li>لا صور stock. الصور من المشاريع فقط.</li>
+</ul>
+</div></section>
+
+<!-- 5 PRINT -->
+<section id="print"><div class="inner">
+<h2>٥ · المطبوعات والمستندات</h2>
+<p>كل المستندات تُبنى من قالب Word واحد (A4، هوامش 20mm، خط IBM Plex Sans Arabic) تتغير فيه الترويسة والجدول فقط. هذا الشكل المرجعي لعرض السعر:</p>
+
+<div class="doc">
+  <div class="head">
+    <div><b>عرض سعر · Quotation</b><br><span style="color:#5C6B7A">Opal Galaxy Air Condition Trading L.L.C</span></div>
+    <div class="no">OG-Q-2026-001<br>20 Oct 2026</div>
+  </div>
+  <div class="grid">
+    <div><b>العميل</b>شركة المقاولات النموذجية<br>Dubai</div>
+    <div><b>صالح حتى</b>15 يوماً<br><b>المشروع</b>فيلا – الورقاء</div>
+  </div>
+  <table>
+    <tr><th>البند</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr>
+    <tr><td>Midea Ducted Split 3.0 Ton – MTIT-36HWFN1(A)</td><td>4</td><td>0,000</td><td>00,000</td></tr>
+    <tr><td>Midea Wall Split 2.0 Ton – MST2AB6</td><td>6</td><td>0,000</td><td>00,000</td></tr>
+    <tr><td>التركيب (اختياري)</td><td>—</td><td>—</td><td>0,000</td></tr>
+  </table>
+  <div class="total">الإجمالي قبل الضريبة 00,000 AED · VAT 5٪ 0,000 · <span style="color:#0B1A2B">الإجمالي 00,000 AED</span></div>
+  <div class="foot">
+    <span>TRN &lt;TRN&gt; · البنك &lt;BANK_NAME&gt; · IBAN &lt;IBAN&gt;</span>
+    <span class="gold">+971 54 198 1593</span>
+  </div>
+</div>
+
+<table>
+<tr><th>المستند</th><th>الترقيم</th><th>ما يميزه</th></tr>
+<tr><td>ورق رسمي</td><td>—</td><td>الشعار الكامل يميناً، خط ذهبي 1pt تحت الترويسة، الفوتر: العنوان + TRN + الهاتف</td></tr>
+<tr><td>عرض سعر</td><td><span class="ltr">OG-Q-YYYY-NNN</span></td><td>صلاحية، شروط الدفع، "التركيب اختياري" بند منفصل دائماً</td></tr>
+<tr><td>فاتورة ضريبية</td><td><span class="ltr">OG-INV-YYYY-NNN</span></td><td>عنوان "Tax Invoice / فاتورة ضريبية"، TRN العميل، VAT 5٪ سطر مستقل، مكان الختم أسفل يسار</td></tr>
+<tr><td>إيصال استلام</td><td><span class="ltr">OG-R-YYYY-NNN</span></td><td>مرجع الفاتورة، طريقة الدفع، ختم Received</td></tr>
+<tr><td>كرت الزيارة</td><td>—</td><td>التصميم الحالي 9×5 يبقى، يُستبدل الشعار بالنسخة المسطّحة فقط</td></tr>
+</table>
+
+<h3>الأختام</h3>
+<p>الختم الدائري الرسمي يُعاد رسمه برمز OG المعتمد بعد اكتمال الـ vector، بالحبر الكحلي. أختام Paid وCancelled بالأحمر وReceived بالأزرق تبقى كما هي: وظيفتها التمييز السريع لا الهوية.</p>
+<span class="stamp">PAID · 02 MAY 2026</span>
+
+<h3>ستيكر الوحدة بعد التركيب</h3>
+<ul>
+<li>دائري 50mm، فينيل مقاوم للشمس، خلفية كحلية.</li>
+<li>رمز OG أبيض في الأعلى، تحته "Supplied &amp; installed by Opal Galaxy"، ثم الهاتف، ثم QR لواتساب.</li>
+<li>يوضع على الجهة الأمامية للوحدة الخارجية، لا على لوحة المواصفات.</li>
+</ul>
+
+<h3>زي الفنيين</h3>
+<ul>
+<li>بولو كحلي، رمز OG مطرّز بالأبيض على الصدر يساراً 60mm.</li>
+<li>الظهر: "OPAL GALAXY" أبيض بعرض 240mm. بلا ذهبي ولا أوبال في التطريز (يتلف ويبهت).</li>
+<li>كاب كحلي برمز OG أبيض.</li>
+</ul>
+
+<div class="note">نطاق المطبوعات (ستيكر، زي، أختام جديدة) يُحسم مع أحمد: ضمن بند الهوية في العقد أم مرحلة ثانية مسعّرة.</div>
+</div></section>
+
+<!-- 6 VOICE -->
+<section id="voice"><div class="inner">
+<h2>٦ · الصوت والرسالة</h2>
+<p>Opal Galaxy مورّد. النبرة: مباشرة، رقمية، بلا مبالغة. نقول الطن والموديل والكمية ومدة التوصيل، لا "أفضل تجربة تبريد".</p>
+<table>
+<tr><th>نكتب</th><th>لا نكتب</th></tr>
+<tr><td>نورّد Midea وO General وCarrier بكميات المشاريع</td><td>حلول تبريد مبتكرة لراحتكم</td></tr>
+<tr><td>التوصيل خلال 48 ساعة في دبي والشارقة</td><td>خدمة سريعة ومميزة</td></tr>
+<tr><td>التركيب متوفر عند الطلب</td><td>فريق خبراء محترفين</td></tr>
+</table>
+<ul>
+<li>العربية فصحى مبسّطة، الإنجليزية بسيطة. لا خلط داخل الجملة الواحدة إلا لأسماء الموديلات.</li>
+<li>الصيانة تُذكر بجملة واحدة في نهاية الصفحات، لا عناوين لها.</li>
+<li>الشعار اللفظي (tagline): <b>قيد النقاش</b>. مقترحان للبداية: "التوريد الذي يعتمد عليه المشروع" · "Brands you trust, supplied at scale".</li>
+</ul>
+</div></section>
+
+<!-- 7 CHECK -->
+<section id="check"><div class="inner">
+<h2>٧ · قبل أي تسليم</h2>
+<ul>
+<li>الشعار من الملفات المعتمدة، لا من screenshot ولا من الـ 3D.</li>
+<li>الألوان بالأسماء الوظيفية، لا HEX يدوي.</li>
+<li>الأوبال في عنصر واحد أو اثنين فقط.</li>
+<li>الخط IBM Plex Sans Arabic بالأوزان الأربعة.</li>
+<li>صور حقيقية من المشاريع فقط.</li>
+<li>الفاتورة: رقم تسلسلي، TRN، VAT سطر مستقل، مكان الختم.</li>
+<li>لا كلمات مرور أو بيانات حساسة في أي ملف تسليم.</li>
+</ul>
+<p class="todo"><b>مفتوح في هذه النسخة:</b> النسخة المسطّحة للشعار · ملف الشعار الأصلي والـ HEX النهائي · TRN وبيانات البنك · الشعار اللفظي · نطاق المطبوعات.</p>
+</div></section>
+</main>
+</div>
+</body>
+</html>
