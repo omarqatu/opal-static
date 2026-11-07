@@ -45,7 +45,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Coolify deploy (opal-web)
+        # Coolify 4.6+: /api/v1/deploy is POST-only
         run: |
-          curl -fsS --retry 3 \
+          curl -fsS --retry 3 -X POST \
             "${{ secrets.COOLIFY_WEBHOOK }}" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
