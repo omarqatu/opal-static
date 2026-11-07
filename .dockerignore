@@ -1,0 +1,7 @@
+.git
+.github
+.dockerignore
+Dockerfile
+.nojekyll
+README.md
+status.md
